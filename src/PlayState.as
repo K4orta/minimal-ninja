@@ -9,8 +9,11 @@ package{
 		[Embed(source = "data/tileset1.png")] public var MapTileGfx:Class;
 		
 		public var map:FlxTilemap;
-		public var player:FlxGroup;
+		// anything that will piss off enemies goes in this group
+		public var player:FlxGroup = new FlxGroup();
+		// anything that the player's weapons(if any) goes in here
 		public var enemies:FlxGroup = new FlxGroup();
+		// add anything that collides here
 		public var metaGroup:FlxGroup = new FlxGroup();
 		
 		protected var lockOnPlayer:Boolean = true;
@@ -22,6 +25,7 @@ package{
 		override public function create():void {
 			Globals.logic = this;
 			hero = new Hero(40, 50);
+			player.add(hero);
 			FlxG.bgColor = 0xFFFFFFFF;
 			map = new FlxTilemap();
 			Globals.map = map;
@@ -65,7 +69,10 @@ package{
 		
 		public function addEnemy(enType:String, x:Number, y:Number):Character {
 			if (enType == "guard") {
-				enemies.add(new Enemy(x,y));
+				var newEn:Enemy = new Enemy(x, y);
+				newEn.makeHostileTo(player);
+				enemies.add(newEn);
+				
 			}
 			return null;
 		}

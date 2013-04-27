@@ -7,9 +7,9 @@ package characters {
 
 	public class Enemy extends Character {
 		[Embed(source = "../data/playerSheet_red.png")] protected var ImgHeroRed:Class;
-		protected static var hostileGroup:FlxGroup;
-		protected var attackTarget:FlxObject;
-		protected var alertTarget:FlxObject;
+		protected var hostileGroup:FlxGroup;
+		protected var attackTarget:Character;
+		protected var alertTarget:Character;
 		protected var guardPost:FlxPoint;
 
 		protected var turnTimer:FlxDelay;
@@ -29,23 +29,26 @@ package characters {
 			play('standing');
 		}
 		
+		public function makeHostileTo(group:FlxGroup):void {
+			hostileGroup = group;
+		}
+		
 		override public function update():void {
 			super.update();
 			if (attackTarget) {
 				// attack behavior has highest priority
+				flicker(1);
 			}else {
 				// no target, then just guard
-				scanForPlayer();
 				if (turnTimer.hasExpired) {
 					facing = facing == LEFT ? RIGHT : LEFT; 
 					turnTimer.reset(Math.random() * 2000 + 2000);
 				}
+				attackTarget = lineofSight(hostileGroup);
 			}
 		}
 		
-		protected function scanForPlayer():Character {
-			return null;
-		}
+		
 	}
 
 }
