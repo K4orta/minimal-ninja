@@ -20,16 +20,15 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\Jeremy\Documents\GitHub\minimal-ninja\src</path-element>
-      <path-element>C:\Users\Jeremy\Documents\GitHub\minimal-ninja\lib</path-element>
-      <path-element>C:\Users\Jeremy\Documents\GitHub\minimal-ninja\lib\Flixel</path-element>
-      <path-element>C:\Program Files (x86)\Adobe\Adobe Flash CS6\Common\Configuration\Component Source\ActionScript 3.0</path-element>
-      <path-element>C:\Users\Jeremy\Desktop\Code\Global AS</path-element>
+      <path-element>C:\Users\Erik\ludumdare\MinimalNinja\src</path-element>
+      <path-element>C:\Users\Erik\ludumdare\MinimalNinja\lib</path-element>
+      <path-element>C:\Users\Erik\ludumdare\MinimalNinja\lib\Flixel</path-element>
+      <path-element>C:\Users\Erik\ludumdare\MinimalNinja\lib\Flixel</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Jeremy\Documents\GitHub\minimal-ninja\src\MinimalNinja.as</path-element>
+    <path-element>C:\Users\Erik\ludumdare\MinimalNinja\src\MinimalNinja.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>60</default-frame-rate>

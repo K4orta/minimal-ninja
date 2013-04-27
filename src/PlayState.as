@@ -13,23 +13,28 @@ package{
 		public var enemies:FlxGroup = new FlxGroup();
 		public var metaGroup:FlxGroup = new FlxGroup();
 		
+		protected var lockOnPlayer:Boolean = true;
 		public var cameraTarget:FlxObject = new FlxObject();
 		
 		public var hero:Hero;
 		public var tileSize:uint = 16;
 		
-		override public function create():void{
+		override public function create():void {
+			Globals.logic = this;
 			hero = new Hero(40, 50);
 			FlxG.bgColor = 0xFFFFFFFF;
 			map = new FlxTilemap();
+			Globals.map = map;
 			map.loadMap(new MapTiles(), MapTileGfx, tileSize, tileSize, 0, 0, 1, 6);
 			// set up collision groups
 			
 			metaGroup.add(map);
 			metaGroup.add(hero);
+			metaGroup.add(enemies);
 			
 			// add map and character to stage
 			add(map);
+			add(enemies);
 			add(hero);
 			
 			FlxG.camera.setBounds(0,0,map.width,map.height,true);
@@ -39,6 +44,7 @@ package{
 			
 			// Press ~ to see the debugger
 			FlxG.debug = true;
+			addEnemy("guard", 500, 160);
 		}
 		
 		override public function update():void {
@@ -51,9 +57,17 @@ package{
 			hero.currentTileBackground = map.getTile(heroTileIndex.x, heroTileIndex.y);
 			
 			//center camera on player
-			cameraTarget.x = hero.x + hero.origin.x;
-			cameraTarget.y = hero.y + hero.origin.y;
-			
+			if(lockOnPlayer){
+				cameraTarget.x = hero.x + hero.origin.x;
+				cameraTarget.y = hero.y + hero.origin.y;
+			}
+		}
+		
+		public function addEnemy(enType:String, x:Number, y:Number):Character {
+			if (enType == "guard") {
+				enemies.add(new Enemy(x,y));
+			}
+			return null;
 		}
 		
 	}

@@ -1,10 +1,6 @@
 package characters {
 	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
-	/**
-	 * ...
-	 * @author Erik
-	 */
 	
 	public class Hero extends Character {
 		[Embed(source = "../data/playerSheet.png")] protected var ImgHero:Class;
@@ -17,15 +13,14 @@ package characters {
 		public var currentTileBackground:uint = 0;
 		protected var currentColorIndex:uint = 0;
 		
-		
 		public function Hero(X:Number=0, Y:Number=0){
 			super(X, Y);
 			loadGraphic(ImgHero, true, true, 64, 64);
-			maxRunSpeed = 250;
+			maxRunSpeed = 280;
 			immovable = false;
 			jumpPower = 500;
 			drag.x = maxRunSpeed * 10;
-			drag.y = 300;
+			drag.y = 600;
 			
 			var runningArray:Array = [];
 			for (var i:int = 1; i < 33; i++) {
@@ -53,11 +48,15 @@ package characters {
 			offset.y = 13;
 		}
 		
+		public function isHidden():Boolean {
+			return currentColorIndex == currentTileBackground;
+		}
+		
 		override public function update():void {
 			super.update();
 			acceleration.x = 0;
 			handleKeys();
-			
+			// should make it so color changes are detected even when jumping
 			if (velocity.x == 0 && !jumping) {
 				if (currentColorIndex == currentTileBackground) {
 					alpha = 0.5;

@@ -12,7 +12,7 @@ package
 
 		public function MinimalNinja(){
 
-			super(720,405,MenuState, 1, 60, 60);
+			super(720,405,PlayState, 1, 60, 60);
 			forceDebugger = true;
 		}
 

@@ -2,10 +2,6 @@ package characters
 {
 	import org.flixel.FlxSprite;
 	
-	/**
-	 * ...
-	 * @author Erik
-	 */
 	public class Character extends FlxSprite 
 	{
 		
