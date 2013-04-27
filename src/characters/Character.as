@@ -18,7 +18,7 @@ package characters
 			var rayPnt:FlxPoint = new FlxPoint();
 			var rp2:FlxPoint = new FlxPoint();
 			for each(var a:Character in group.members) {
-				if (a && a.alive) {
+				if (a && a.alive &&! a.isHidden()) {
 					if ((facing == LEFT && a.x > x) || (facing == RIGHT && a.x < x))
 						continue;
 					if (Math.abs(a.getDist(this)) < sightRange) {
@@ -29,6 +29,10 @@ package characters
 				}
 			}
 			return null;
+		}
+		
+		public function isHidden():Boolean {
+			return false;
 		}
 		
 		public function getDist(Arg:FlxSprite):Number {

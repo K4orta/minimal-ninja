@@ -48,7 +48,7 @@ package characters {
 			offset.y = 13;
 		}
 		
-		public function isHidden():Boolean {
+		override public function isHidden():Boolean {
 			return currentColorIndex == currentTileBackground;
 		}
 		
