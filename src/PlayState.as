@@ -7,7 +7,7 @@ package{
 
 	public class PlayState extends FlxState{
 		[Embed(source = "data/tileset1.png")] public var MapTileGfx:Class;
-		[Embed(source = "data/levels/map.json", mimeType = "application/octet-stream")] public var TestLevel:Class;
+		[Embed(source = "data/levels/Group1.json", mimeType = "application/octet-stream")] public var TestLevel:Class;
 		
 		public var map:FlxTilemap;
 		public var backgroundMap:FlxTilemap;
@@ -46,9 +46,8 @@ package{
 			backgroundMap = new FlxTilemap();
 			Globals.map = map;
 			if (mapData) {
-				MapLoader.parseMapJSON(mapData, [map], this);
+				MapLoader.parseMapJSON(mapData, [map, backgroundMap], this);
 				FlxG.log(map.height);
-				
 			}
 			
 			// set up collision groups
@@ -58,6 +57,7 @@ package{
 			metaGroup.add(enemies);
 			
 			// add map and character to stage
+			add(backgroundMap);
 			add(map);
 			add(enemies);
 			add(player);
@@ -74,7 +74,7 @@ package{
 			var heroMid:FlxPoint = hero.getMidpoint();
 			var heroTileIndex:Point = new Point(Math.floor(heroMid.x/tileSize), Math.floor(heroMid.y/tileSize));
 			
-			hero.currentTileBackground = map.getTile(heroTileIndex.x, heroTileIndex.y);
+			hero.currentTileBackground = backgroundMap.getTile(heroTileIndex.x, heroTileIndex.y);
 			
 			//center camera on player
 			if(lockOnPlayer){
