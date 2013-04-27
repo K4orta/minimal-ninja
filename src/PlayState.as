@@ -1,6 +1,7 @@
 package{
 
 	import characters.*;
+	import flash.geom.Point;
 	import org.flixel.*;
 
 	public class PlayState extends FlxState{
@@ -14,13 +15,14 @@ package{
 		
 		public var cameraTarget:FlxObject = new FlxObject();
 		
-		public var hero:Character;
+		public var hero:Hero;
+		public var tileSize:uint = 16;
 		
 		override public function create():void{
 			hero = new Hero(40, 50);
 			FlxG.bgColor = 0xFFFFFFFF;
 			map = new FlxTilemap();
-			map.loadMap(new MapTiles(), MapTileGfx, 16, 16, 0, 0, 1, 2);
+			map.loadMap(new MapTiles(), MapTileGfx, tileSize, tileSize, 0, 0, 1, 6);
 			// set up collision groups
 			
 			metaGroup.add(map);
@@ -42,6 +44,11 @@ package{
 		override public function update():void {
 			super.update();
 			FlxG.collide(metaGroup);
+			
+			var heroMid:FlxPoint = hero.getMidpoint();
+			var heroTileIndex:Point = new Point(Math.floor(heroMid.x/tileSize), Math.floor(heroMid.y/tileSize));
+			
+			hero.currentTileBackground = map.getTile(heroTileIndex.x, heroTileIndex.y);
 			
 			//center camera on player
 			cameraTarget.x = hero.x + hero.origin.x;
