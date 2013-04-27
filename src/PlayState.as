@@ -3,18 +3,20 @@ package{
 	import characters.*;
 	import flash.geom.Point;
 	import org.flixel.*;
+	import JSON;
 
 	public class PlayState extends FlxState{
-		[Embed(source = "data/levels/mapCSV_Group1_Map1.csv", mimeType = "application/octet-stream")] public var MapTiles:Class;
 		[Embed(source = "data/tileset1.png")] public var MapTileGfx:Class;
+		[Embed(source = "data/levels/map.json", mimeType = "application/octet-stream")] public var TestLevel:Class;
 		
 		public var map:FlxTilemap;
+		public var backgroundMap:FlxTilemap;
 		// anything that will piss off enemies goes in this group
-		public var player:FlxGroup = new FlxGroup();
+		public var player:FlxGroup;
 		// anything that the player's weapons(if any) goes in here
-		public var enemies:FlxGroup = new FlxGroup();
+		public var enemies:FlxGroup;
 		// add anything that collides here
-		public var metaGroup:FlxGroup = new FlxGroup();
+		public var metaGroup:FlxGroup;
 		
 		protected var lockOnPlayer:Boolean = true;
 		public var cameraTarget:FlxObject = new FlxObject();
@@ -23,32 +25,46 @@ package{
 		public var tileSize:uint = 16;
 		
 		override public function create():void {
+			super.create();
 			Globals.logic = this;
-			hero = new Hero(40, 50);
-			player.add(hero);
+			
+			FlxG.framerate = 60;
+			FlxG.flashFramerate = 60;
+			// Press ~ to see the debugger
+			FlxG.debug = true;
+			
+			loadLevel(TestLevel);
+		}
+		
+		private function initStage(mapData:String=""):void {
+			player = new FlxGroup();
+			enemies = new FlxGroup();
+			metaGroup = new FlxGroup();
+			
 			FlxG.bgColor = 0xFFFFFFFF;
 			map = new FlxTilemap();
+			backgroundMap = new FlxTilemap();
 			Globals.map = map;
-			map.loadMap(new MapTiles(), MapTileGfx, tileSize, tileSize, 0, 0, 1, 6);
+			if (mapData) {
+				MapLoader.parseMapJSON(mapData, [map], this);
+				FlxG.log(map.height);
+				
+			}
+			
 			// set up collision groups
 			
 			metaGroup.add(map);
-			metaGroup.add(hero);
+			metaGroup.add(player);
 			metaGroup.add(enemies);
 			
 			// add map and character to stage
 			add(map);
 			add(enemies);
-			add(hero);
+			add(player);
+			add(cameraTarget);
 			
 			FlxG.camera.setBounds(0,0,map.width,map.height,true);
 			FlxG.camera.follow(cameraTarget);
-			FlxG.framerate = 60;
-			FlxG.flashFramerate = 60;
-			
-			// Press ~ to see the debugger
-			FlxG.debug = true;
-			addEnemy("guard", 500, 160);
 		}
 		
 		override public function update():void {
@@ -67,14 +83,32 @@ package{
 			}
 		}
 		
-		public function addEnemy(enType:String, x:Number, y:Number):Character {
-			if (enType == "guard") {
-				var newEn:Enemy = new Enemy(x, y);
-				newEn.makeHostileTo(player);
-				enemies.add(newEn);
-				
+		public function addCharacter(type:String, x:Number, y:Number, ...args):Character {
+			var newCharacter:Character;
+			if (type=="Hero") {
+				newCharacter = new Hero(x, y);
+				hero = newCharacter as Hero;
+				player.add(newCharacter);
+			}else if (type == "Guard") {
+				newCharacter = new Enemy(x, y);
+				newCharacter.makeHostileTo(player);
+				enemies.add(newCharacter);
 			}
-			return null;
+			return newCharacter;
+		}
+		
+		public function loadLevel(mapData:Class):void {
+			//unload();
+			initStage(new mapData());
+		}
+		
+		private function unload():void {
+			map = null;
+			Globals.map = null;
+			if(enemies){
+				enemies.kill();
+				player.kill();
+			}
 		}
 		
 	}

@@ -29,7 +29,7 @@ package characters {
 			play('standing');
 		}
 		
-		public function makeHostileTo(group:FlxGroup):void {
+		override public function makeHostileTo(group:FlxGroup):void {
 			hostileGroup = group;
 		}
 		

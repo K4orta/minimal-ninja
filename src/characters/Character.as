@@ -35,6 +35,10 @@ package characters
 			return false;
 		}
 		
+		public function makeHostileTo(group:FlxGroup):void {
+			
+		}
+		
 		public function getDist(Arg:FlxSprite):Number {
 			var dx:Number = (Arg.x+Arg.origin.x) - (x+origin.x);
 			var dy:Number = (Arg.y+Arg.origin.y) - (y+origin.y);
