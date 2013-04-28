@@ -21,7 +21,7 @@ package characters {
 			loadGraphic(ImgHero, true, true, 64, 64);
 			maxRunSpeed = 280;
 			immovable = false;
-			jumpPower = 500;
+			jumpPower = 600;
 			drag.x = maxRunSpeed*3;
 			drag.y = 600;
 			
