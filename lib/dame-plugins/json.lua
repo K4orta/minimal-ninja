@@ -124,7 +124,12 @@ for groupIndex = 0,groupCount do
 	layerText=""
 	for i,v in ipairs(spriteLayers) do
 		layer = spriteLayers[i][2]
-		creationText = "{\"type\":\"%class%\", \"x\":\"%xpos%\", \"y\":\"%ypos%\"}"
+
+		propertiesString = ",\"properties\":{ %%proploop%%"
+		propertiesString = propertiesString.."\"%propname%\": %propvaluestring%%separator:,%"
+		propertiesString = propertiesString.."%%proploopend%%"
+
+		creationText = "{\"type\":\"%class%\", \"x\":\"%xpos%\", \"y\":\"%ypos%\"" .. propertiesString .. "}}"
 		layerText = layerText.."],"..'"'..spriteLayers[i][3]..'"'..":[";
 		layerText = layerText..as3.tolua(DAME.CreateTextForSprites(layer,creationText,"Avatar"))
 	end

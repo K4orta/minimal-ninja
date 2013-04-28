@@ -30,12 +30,12 @@ package
 			add(playButton);
 			
 			
+			
 			FlxG.mouse.show();
 			
 		}
 		
-		override public function update():void
-		{
+		override public function update():void{
 			super.update();	
 		}
 		

@@ -71,7 +71,7 @@ package characters {
 		
 		public function handleKeys():void {
 			if (FlxG.keys.M) {
-				if(!dashing && !dashDown && !jumping){
+				if(!dashing && !dashDown){
 					dashing = true;
 					dashSpeed = maxRunSpeed * 3;
 					velocity.x = dashSpeed * (facing == RIGHT ? 1 : -1);

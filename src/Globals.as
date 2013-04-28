@@ -6,6 +6,7 @@ package
 		public static var logic:PlayState;
 		public static var map:FlxTilemap;
 		public static var gravity:Number = 1400;
+		public static var currentLevel:int = 0;
 		
 		public function Globals(){
 			

@@ -27,7 +27,7 @@ package
 			}
 			//so maps are loaded before we put objects into them
 			for each(var sp:Object in spriteList) {
-				state.addCharacter(sp.type, sp.x, sp.y);
+				state.addSprite(sp.type, sp.x, sp.y, sp.properties);
 			}
 			
 		}
