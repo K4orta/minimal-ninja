@@ -8,6 +8,7 @@ package characters
 	
 	public class Character extends FlxSprite {	
 		public var sightRange:Number = 500;
+		public var litColor:uint;
 		
 		public function Character(X:Number=0, Y:Number=0, SimpleGraphic:Class=null){
 			super(X, Y, SimpleGraphic);

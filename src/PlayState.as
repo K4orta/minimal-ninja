@@ -23,6 +23,7 @@ package{
 		public var metaGroup:FlxGroup;
 		public var miscObjects:FlxGroup;
 		public var backgroundObjects:FlxGroup;
+		public var lights:FlxGroup;
 		
 		protected var lockOnPlayer:Boolean = true;
 		public var cameraTarget:FlxObject = new FlxObject();
@@ -49,6 +50,7 @@ package{
 			metaGroup = new FlxGroup();
 			backgroundObjects = new FlxGroup();
 			miscObjects = new FlxGroup();
+			lights = new FlxGroup();
 			
 			FlxG.bgColor = 0xFF000000;
 			map = new FlxTilemap();
@@ -61,7 +63,7 @@ package{
 			
 			// set up collision groups
 			
-			metaGroup.add(map);
+			backgroundObjects.add(lights);
 			metaGroup.add(player);
 			metaGroup.add(enemies);
 			
@@ -75,6 +77,8 @@ package{
 			
 			FlxG.camera.setBounds(0,0,map.width,map.height,true);
 			FlxG.camera.follow(cameraTarget);
+			lights.add(new Light(200,300,90));
+			lights.add(new Light(500,400,90));
 		}
 		
 		public function onHit(hero:Hero, enemy:Enemy):void {
@@ -87,11 +91,12 @@ package{
 		
 		override public function update():void {
 			super.update();
-			FlxG.collide(metaGroup);
+			FlxG.collide(metaGroup, map);
 			FlxG.overlap(player, enemies, onHit);
 			
 			var heroMid:FlxPoint = hero.getMidpoint();
 			var heroTileIndex:Point = new Point(Math.floor(heroMid.x/tileSize), Math.floor(heroMid.y/tileSize));
+			
 			
 			hero.currentTileBackground = backgroundMap.getTile(heroTileIndex.x, heroTileIndex.y);
 			

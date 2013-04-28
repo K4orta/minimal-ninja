@@ -37,20 +37,20 @@ package characters {
 			
 			
 			// tweak the bounding box of the player
+			resetBounds();
+			
+		}
+		
+		protected function resetBounds():void {
 			width = 30;
 			height = 42;
 			offset.x = 16;
 			offset.y = 13;
-			
 		}
 		
 		private function updatePlayerColor(color:String):void {
 			loadGraphic(this['ImgHero' + color], true, true, 64, 64);
-			
-			width = 30;
-			height = 42;
-			offset.x = 16;
-			offset.y = 13;
+			resetBounds();
 		}
 		
 		override public function isHidden():Boolean {
@@ -119,16 +119,16 @@ package characters {
 			
 			
 			if (FlxG.keys.J) {
-				currentColorIndex = 0;
+				currentColorIndex = TileColors.WHITE;
 				updatePlayerColor('');
 			} else if (FlxG.keys.K) {
-				currentColorIndex = 3;
+				currentColorIndex = TileColors.RED;
 				updatePlayerColor('Red');
 			} else if (FlxG.keys.L) {
 				currentColorIndex = 4;
 				updatePlayerColor('Blue');
 			} else if (FlxG.keys.SEMICOLON) {
-				currentColorIndex = 5;
+				currentColorIndex = TileColors.BLACK;
 				updatePlayerColor('Black');
 			}
 			
