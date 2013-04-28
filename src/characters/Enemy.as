@@ -29,6 +29,8 @@ package characters {
 		private var alertCountDown:uint = 0;;
 		
 		protected var alertState:uint = 0;
+		protected var starMagazine:uint = 3;
+		protected var attackDelay: FlxDelay;
 		
 		public function Enemy(X:Number = 0, Y:Number = 0) {
 			super(X, Y);
@@ -36,6 +38,8 @@ package characters {
 			turnTimer = new FlxDelay(Math.random() * 2000 + 2000);
 			turnTimer.start();
 			loadGraphic(ImgHeroBlue, true, true, 64, 64);
+			attackDelay = new FlxDelay(0);
+			attackDelay.start();
 			
 			drag.x = maxRunSpeed[2]*10;
 			drag.y = 600;
@@ -62,6 +66,18 @@ package characters {
 			hostileGroup = group;
 		}
 		
+		protected function starAttack():void {
+			Globals.logic.addProjectile("star", x, y, new FlxPoint(attackTarget.x+attackTarget.origin.x, attackTarget.y+attackTarget.origin.y));
+			if (starMagazine > 0) {
+				attackDelay.reset(400);
+				--starMagazine;
+			}else {
+				attackDelay.reset(2000);
+				starMagazine = 3;
+			}
+			
+		}
+		
 		override public function update():void {
 			super.update();
 			acceleration.x = 0;
@@ -83,6 +99,10 @@ package characters {
 				}
 				
 				facing = x < lastKnownPoint.x ? RIGHT : LEFT;
+				if(attackDelay.hasExpired){
+					starAttack();
+				}
+				
 				// adding a minimum distance so the player can't just invis in the guard's face
 				if (!lineofSight(hostileGroup) && getDist(attackTarget) > 168) {
 					alertState = ALERT;

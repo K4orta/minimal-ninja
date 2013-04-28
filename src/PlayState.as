@@ -25,6 +25,7 @@ package{
 		public var backgroundObjects:FlxGroup;
 		public var lights:FlxGroup;
 		public var particles:FlxGroup;
+		public var projectiles:FlxGroup;
 		
 		protected var lockOnPlayer:Boolean = true;
 		public var cameraTarget:FlxObject = new FlxObject();
@@ -52,6 +53,7 @@ package{
 			backgroundObjects = new FlxGroup();
 			miscObjects = new FlxGroup();
 			lights = new FlxGroup();
+			projectiles = new FlxGroup();
 			
 			FlxG.bgColor = 0xFF000000;
 			map = new FlxTilemap();
@@ -67,6 +69,8 @@ package{
 			backgroundObjects.add(lights);
 			metaGroup.add(player);
 			metaGroup.add(enemies);
+			metaGroup.add(projectiles);
+			
 			
 			// add map and character to stage
 			add(backgroundMap);
@@ -74,6 +78,7 @@ package{
 			add(map);
 			add(enemies);
 			add(player);
+			add(projectiles);
 			add(cameraTarget);
 			
 			FlxG.camera.setBounds(0,0,map.width,map.height,true);
@@ -94,6 +99,7 @@ package{
 			super.update();
 			FlxG.collide(metaGroup, map);
 			FlxG.overlap(player, enemies, onHit);
+			FlxG.overlap(player, projectiles, starHitPlayer);
 			
 			var heroMid:FlxPoint = hero.getMidpoint();
 			var heroTileIndex:Point = new Point(Math.floor(heroMid.x/tileSize), Math.floor(heroMid.y/tileSize));
@@ -106,6 +112,10 @@ package{
 				cameraTarget.x = hero.x + hero.origin.x;
 				cameraTarget.y = hero.y + hero.origin.y;
 			}
+		}
+		
+		public function starHitPlayer(hero:Hero, star:FlxSprite):void {
+			hero.flicker(1);
 		}
 		
 		public function updateLights():void {
@@ -138,6 +148,12 @@ package{
 			return newCharacter;
 		}
 		
+		public function addProjectile(type:String, x:Number, y:Number, target:FlxPoint):void {
+			if (type == "star") {
+				projectiles.add(new NinjaStar(x, y, target));
+			}
+		}
+		
 		public function nextMap():void {
 			loadLevel(levels[++Globals.currentLevel]);
 		}
@@ -153,14 +169,17 @@ package{
 		
 		private function unload():void {
 			remove(player);
+			remove(projectiles);
 			remove(enemies);
 			remove(map);
+			remove(lights);
 			remove(backgroundMap);
 			remove(backgroundObjects);
 			map = null;
 			backgroundMap = null;
 			Globals.map = null;
-			if(enemies){
+			if (enemies) {
+				projectiles.kill();
 				enemies.kill();
 				player.kill();
 				backgroundObjects.kill();
