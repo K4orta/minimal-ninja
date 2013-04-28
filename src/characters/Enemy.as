@@ -110,6 +110,9 @@ package characters {
 					turnTimer.reset(Math.random() * 2000 + 2000);
 				}
 				attackTarget = lineofSight(hostileGroup);
+				if (attackTarget) {
+					Globals.timesSeen += 1;
+				}
 			}
 			
 			if(standDelay <= 0){

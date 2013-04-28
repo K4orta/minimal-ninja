@@ -8,9 +8,13 @@ package objects
 		protected var player:FlxGroup;
 		protected var doorType:String;
 		public function Door(X:Number=0, Y:Number=0, options:Object=null){
-			super(X, Y, ImgDoor);
+			super(X, Y);
 			player = options.player;
 			doorType = options.doorType;
+			loadGraphic(ImgDoor, true, false, 48, 64);
+			addAnimation("open", [1], 0, false);
+			addAnimation("locked", [0], 0, false);
+			play("open");
 		}
 		
 		override public function update():void {

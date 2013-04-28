@@ -24,6 +24,7 @@ package{
 		public var miscObjects:FlxGroup;
 		public var backgroundObjects:FlxGroup;
 		public var lights:FlxGroup;
+		public var particles:FlxGroup;
 		
 		protected var lockOnPlayer:Boolean = true;
 		public var cameraTarget:FlxObject = new FlxObject();
@@ -84,6 +85,7 @@ package{
 		public function onHit(hero:Hero, enemy:Enemy):void {
 			if (hero.dashing && !enemy.knockedOut) {
 				enemy.knockedOut = true;
+				Globals.guarksKnockedOut += 1;
 				enemy.velocity.x = hero.velocity.x * 4;
 				enemy.velocity.y = -600;
 			}

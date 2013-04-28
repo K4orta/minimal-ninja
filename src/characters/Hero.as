@@ -38,7 +38,7 @@ package characters {
 			
 			// tweak the bounding box of the player
 			resetBounds();
-			
+			updatePlayerColor("Black");
 		}
 		
 		protected function resetBounds():void {
@@ -63,7 +63,7 @@ package characters {
 			handleKeys();
 			// should make it so color changes are detected even when jumping
 			if (currentColorIndex == currentTileBackground) {
-				alpha = 0.5;
+				alpha = 0.35;
 			} else {
 				alpha = 1;
 			}
