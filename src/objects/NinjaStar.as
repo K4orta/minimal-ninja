@@ -15,6 +15,8 @@ package objects
 		public function NinjaStar(X:Number=0, Y:Number=0, Target:FlxPoint=null) {
 			super(X, Y, ImgStar);
 			FlxVelocity.moveTowardsPoint(this, Target, 500);
+			blend = "difference";
+			
 		}
 		
 		override public function update():void {
