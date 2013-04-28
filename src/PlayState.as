@@ -78,7 +78,7 @@ package{
 			FlxG.camera.setBounds(0,0,map.width,map.height,true);
 			FlxG.camera.follow(cameraTarget);
 			lights.add(new Light(200,300,90));
-			lights.add(new Light(500,400,90));
+			lights.add(new Light(500,400,128));
 		}
 		
 		public function onHit(hero:Hero, enemy:Enemy):void {
@@ -97,13 +97,21 @@ package{
 			var heroMid:FlxPoint = hero.getMidpoint();
 			var heroTileIndex:Point = new Point(Math.floor(heroMid.x/tileSize), Math.floor(heroMid.y/tileSize));
 			
-			
 			hero.currentTileBackground = backgroundMap.getTile(heroTileIndex.x, heroTileIndex.y);
+			updateLights();
 			
 			//center camera on player
 			if(lockOnPlayer){
 				cameraTarget.x = hero.x + hero.origin.x;
 				cameraTarget.y = hero.y + hero.origin.y;
+			}
+		}
+		
+		public function updateLights():void {
+			for each(var light:Light in lights.members) {
+				if (hero.getDist(light) < light.radius) {
+					hero.currentTileBackground = light.getColor();
+				}
 			}
 		}
 		
