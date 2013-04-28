@@ -5,7 +5,8 @@ package
 	
 	
 	public class MapLoader {
-		[Embed(source = "data/tileset1.png")] public static var MapTileGfx:Class;
+		[Embed(source = "data/blocking-tiles1.png")] public static var MapTileGfx:Class;
+		[Embed(source = "data/background-tiles.png")] public static var MapBackgroundGfx:Class;
 		
 		public function MapLoader(){
 		}
@@ -19,9 +20,9 @@ package
 				if (a == "sprites") {
 					spriteList = data[a];
 				}else if (a == "blocking") {
-					maps[0].loadMap(data[a].replace(r, "\n"), MapLoader.MapTileGfx, 16, 16, 0, 0, 1, 2);
+					maps[0].loadMap(data[a].replace(r, "\n"), MapLoader.MapTileGfx, 16, 16, 0, 0, 1, 1);
 				}else if (a == "background") {
-					maps[1].loadMap(data[a].replace(r, "\n"), MapLoader.MapTileGfx, 16, 16, 0, 0, 1, 1);
+					maps[1].loadMap(data[a].replace(r, "\n"), MapLoader.MapBackgroundGfx, 16, 16, 0, 0, 1, 1);
 				}
 			}
 			//so maps are loaded before we put objects into them

@@ -41,7 +41,7 @@ package{
 			enemies = new FlxGroup();
 			metaGroup = new FlxGroup();
 			
-			FlxG.bgColor = 0xFFFFFFFF;
+			FlxG.bgColor = 0xFF000000;
 			map = new FlxTilemap();
 			backgroundMap = new FlxTilemap();
 			Globals.map = map;
