@@ -67,9 +67,18 @@ package{
 			FlxG.camera.follow(cameraTarget);
 		}
 		
+		public function onHit(hero:Hero, enemy:Enemy):void {
+			if (hero.dashing && !enemy.knockedOut) {
+				enemy.knockedOut = true;
+				enemy.velocity.x = hero.velocity.x * 4;
+				enemy.velocity.y = -600;
+			}
+		}
+		
 		override public function update():void {
 			super.update();
 			FlxG.collide(metaGroup);
+			FlxG.overlap(player, enemies, onHit);
 			
 			var heroMid:FlxPoint = hero.getMidpoint();
 			var heroTileIndex:Point = new Point(Math.floor(heroMid.x/tileSize), Math.floor(heroMid.y/tileSize));
