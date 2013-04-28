@@ -7,6 +7,7 @@ package objects
 		[Embed(source = "../data/door.png")] protected var ImgDoor:Class;
 		protected var player:FlxGroup;
 		protected var doorType:String;
+		protected var isOpen:Boolean;
 		public function Door(X:Number=0, Y:Number=0, options:Object=null){
 			super(X, Y);
 			player = options.player;
@@ -14,7 +15,17 @@ package objects
 			loadGraphic(ImgDoor, true, false, 48, 64);
 			addAnimation("open", [1], 0, false);
 			addAnimation("locked", [0], 0, false);
+			open();
+		}
+		
+		public function open():void {
+			isOpen = true;
 			play("open");
+		}
+		
+		public function close():void {
+			isOpen = false;
+			play("closed");
 		}
 		
 		override public function update():void {

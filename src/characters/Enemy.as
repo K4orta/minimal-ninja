@@ -83,8 +83,8 @@ package characters {
 				}
 				
 				facing = x < lastKnownPoint.x ? RIGHT : LEFT;
-				
-				if (!lineofSight(hostileGroup)) {
+				// adding a minimum distance so the player can't just invis in the guard's face
+				if (!lineofSight(hostileGroup) && getDist(attackTarget) > 168) {
 					alertState = ALERT;
 					if (Math.abs(x - lastKnownPoint.x) < 30) {
 						standDelay = 120;

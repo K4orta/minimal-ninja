@@ -2,14 +2,19 @@
 <project>
   <version>3.1.3</version>
   <bgColor>0x777777</bgColor>
-  <viewPos x="38" y="245"/>
+  <viewPos x="299" y="245"/>
   <firstLayersTop>false</firstLayersTop>
-  <spriteEntries currentId="4">
+  <spriteEntries currentId="5">
     <sprite name="Hero" idx="1" className="Hero" image="../src/data/playerSheet.png" width="64" height="64" preview="0" anchorX="0" anchorY="0" centerAnchor="false" boundsX="19" boundsY="6" boundsWidth="26" boundsHeight="50" constructor="" creation="" exports="true" canScale="true" canRotate="true" surfaceObject="false" tileIndex="-1" canEditFrames="true" lockRotation="false"/>
     <sprite name="Enemy" idx="2" className="Guard" image="../src/data/playerSheet_red.png" width="64" height="64" preview="0" anchorX="0" anchorY="0" centerAnchor="false" boundsX="0" boundsY="0" boundsWidth="64" boundsHeight="64" constructor="" creation="" exports="true" canScale="true" canRotate="true" surfaceObject="false" tileIndex="-1" canEditFrames="true" lockRotation="false"/>
-    <sprite name="Door" idx="3" className="Door" image="../src/data/door.png" width="48" height="64" preview="0" anchorX="0" anchorY="0" centerAnchor="false" boundsX="0" boundsY="0" boundsWidth="48" boundsHeight="64" constructor="" creation="" exports="true" canScale="true" canRotate="true" surfaceObject="false" tileIndex="-1" canEditFrames="true" lockRotation="false" selected="true">
+    <sprite name="Door" idx="3" className="Door" image="../src/data/door.png" width="48" height="64" preview="0" anchorX="0" anchorY="0" centerAnchor="false" boundsX="0" boundsY="0" boundsWidth="48" boundsHeight="64" constructor="" creation="" exports="true" canScale="true" canRotate="true" surfaceObject="false" tileIndex="-1" canEditFrames="true" lockRotation="false">
       <properties>
         <type typeof="String" name="doorType" value="next" hidden="false"/>
+      </properties>
+    </sprite>
+    <sprite name="Light" idx="4" className="Light" image="../src/data/light-standin.png" width="32" height="32" preview="0" anchorX="0" anchorY="0" centerAnchor="false" boundsX="0" boundsY="0" boundsWidth="32" boundsHeight="32" constructor="" creation="" exports="true" canScale="true" canRotate="true" surfaceObject="false" tileIndex="-1" canEditFrames="true" lockRotation="false" selected="true">
+      <properties>
+        <type typeof="Float" name="radius" value="64.000000" hidden="false"/>
       </properties>
     </sprite>
   </spriteEntries>
@@ -109,6 +114,14 @@
         <sprite guid="473D6004-79CF-AA3C-EF33-B18EB24B54CC" x="74" y="543" Z="0" angle="0" scaleX="1" scaleY="1" flipped="false" idx="3">
           <properties>
             <dataOverride name="doorType" typeof="String" value="prev" idx="0"/>
+          </properties>
+        </sprite>
+        <sprite guid="06A049EC-89F0-68BE-DAF5-728012DBF988" x="185" y="311" Z="0" angle="0" scaleX="1" scaleY="1" flipped="false" idx="4">
+          <properties/>
+        </sprite>
+        <sprite guid="739554D9-7AC1-4F5B-F4AE-A74B66A53379" x="576" y="495" Z="0" angle="0" scaleX="1" scaleY="1" flipped="false" idx="4">
+          <properties>
+            <dataOverride name="radius" typeof="Float" value="128.000000" idx="0"/>
           </properties>
         </sprite>
       </spritelayer>

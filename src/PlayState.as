@@ -78,8 +78,7 @@ package{
 			
 			FlxG.camera.setBounds(0,0,map.width,map.height,true);
 			FlxG.camera.follow(cameraTarget);
-			lights.add(new Light(200,300,90));
-			lights.add(new Light(500,400,128));
+
 		}
 		
 		public function onHit(hero:Hero, enemy:Enemy):void {
@@ -131,6 +130,10 @@ package{
 				options["player"] = player;
 				newCharacter = new Door(x, y, options);
 				backgroundObjects.add(newCharacter);
+			}else if (type == "Light") {
+				if (!options.radius) options.radius = 32; 
+				newCharacter = new Light(x, y, Number(options.radius));
+				lights.add(newCharacter);
 			}
 			return newCharacter;
 		}
